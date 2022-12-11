@@ -14,7 +14,7 @@ public class PlayerInput : MonoBehaviour
 
     private void Awake()
     {
-        if (mainCamera != null)
+        if (mainCamera == null)
         {
             mainCamera = Camera.main; 
         }
@@ -42,13 +42,13 @@ public class PlayerInput : MonoBehaviour
     {
         Vector3 mousePosition = Input.mousePosition;
         mousePosition.z = mainCamera.nearClipPlane;
-        Vector2 mouseWorldPosition = mainCamera.ScreenToViewportPoint(mousePosition);
+        Vector2 mouseWorldPosition = mainCamera.ScreenToWorldPoint(mousePosition);
         return mouseWorldPosition;
     }
 
     private void GetBodyMovement()
     {
-        Vector2 movementVector = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        Vector2 movementVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         OnMoveBody?.Invoke(movementVector.normalized);
     }
 }
